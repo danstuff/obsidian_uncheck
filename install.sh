@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Build the Unchbot plugin and install it into an Obsidian vault.
+# Build the Uncheck plugin and install it into an Obsidian vault.
 #
 # Usage: ./install.sh /path/to/vault
 

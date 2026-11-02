@@ -1,6 +1,6 @@
 {
-	"id": "unchbot",
-	"name": "Unchbot",
+	"id": "uncheck",
+	"name": "Uncheck",
 	"version": "1.0.0",
 	"minAppVersion": "1.1.0",
 	"description": "Uncheck checklist items on a recurring schedule using %% @uncheck <period> %% comments.",

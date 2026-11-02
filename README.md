@@ -1,4 +1,4 @@
-# Unchbot
+# Uncheck
 
 An [Obsidian](https://obsidian.md) plugin that automatically unchecks checklist items on a recurring schedule — handy for daily/weekly/monthly habits and chores tracked as tasks.
 
@@ -13,7 +13,7 @@ Add a `%% @uncheck <period> %%` comment to the end of a checklist line, where `<
 - [ ] Renew passport %% @uncheck every year %%
 ```
 
-Whenever you check one of these items off, Unchbot leaves it checked until its next scheduled occurrence, then automatically unchecks it so you can complete it again on the next cycle. Items with no `@uncheck` comment are left alone.
+Whenever you check one of these items off, Uncheck leaves it checked until its next scheduled occurrence, then automatically unchecks it so you can complete it again on the next cycle. Items with no `@uncheck` comment are left alone.
 
 Supported phrases follow [rrule's natural language grammar](https://github.com/jkbrzt/rrule), e.g. `every day`, `every 2 weeks`, `every weekday`, `every month on the 1st and 15th`, `every year in June`, `every week on Monday, Wednesday, and Friday`.
 
@@ -34,15 +34,16 @@ Here, "Water the plants" and "Take out the trash" both uncheck daily, while "Ren
 
 ## Usage
 
-- Unchbot scans the vault automatically on a timer (configurable in **Settings → Unchbot**, default every 15 minutes) and once shortly after Obsidian starts.
+- Uncheck scans the vault automatically on a timer (configurable in **Settings → Uncheck**, default every 15 minutes) and once shortly after Obsidian starts.
+- Set **Start of day** in settings if your day doesn't end at midnight. For example, with `04:00` a daily item checked at 1am still counts for the previous day and unchecks at 4am.
 - Run **Uncheck due checklist items now** from the command palette, or the **Run now** button in settings, to scan immediately.
-- If a `@uncheck` period can't be understood, Unchbot shows a notice and logs the offending text to the developer console; the item is left untouched.
+- If a `@uncheck` period can't be understood, Uncheck shows a notice and logs the offending text to the developer console; the item is left untouched.
 
 ## Notes & limitations
 
-- Recurrence timing is anchored to local midnight on the day Unchbot first saw the item (or, for items created before installing the plugin, the day it first ran) — not the exact time of day it was checked or unchecked. A daily item becomes due again as soon as the calendar day changes, not 24 hours after it was last checked. If Obsidian was closed when an item's schedule was due, Unchbot catches up and unchecks it on the next scan rather than firing once per missed occurrence.
+- Recurrence timing is anchored to the start of the day (local midnight by default; change it with **Settings → Uncheck → Start of day**) on the day Uncheck first saw the item (or, for items created before installing the plugin, the day it first ran) — not the exact time of day it was checked or unchecked. A daily item becomes due again as soon as the calendar day changes, not 24 hours after it was last checked. If Obsidian was closed when an item's schedule was due, Uncheck catches up and unchecks it on the next scan rather than firing once per missed occurrence.
 - An item's identity is derived from its file path and its text (ignoring checked state). Renaming the item or moving it to another file resets its schedule.
-- Unchbot only reads/writes files inside the vault and makes no network requests.
+- Uncheck only reads/writes files inside the vault and makes no network requests.
 
 ## Development
 
@@ -55,7 +56,7 @@ npm run build  # production build
 npm run lint
 ```
 
-For manual testing, copy `main.js`, `manifest.json` into `<Vault>/.obsidian/plugins/unchbot/`, then reload Obsidian and enable the plugin under **Settings → Community plugins**.
+For manual testing, copy `main.js`, `manifest.json` into `<Vault>/.obsidian/plugins/uncheck/`, then reload Obsidian and enable the plugin under **Settings → Community plugins**.
 
 ## Releasing
 
@@ -67,4 +68,4 @@ For manual testing, copy `main.js`, `manifest.json` into `<Vault>/.obsidian/plug
 
 ## Manually installing the plugin
 
-- Copy `main.js`, `manifest.json` to `<Vault>/.obsidian/plugins/unchbot/`.
+- Copy `main.js`, `manifest.json` to `<Vault>/.obsidian/plugins/uncheck/`.

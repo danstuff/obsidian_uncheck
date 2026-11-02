@@ -1,5 +1,5 @@
 {
-	"name": "obsidian-unchbot",
+	"name": "obsidian-uncheck",
 	"version": "1.0.0",
 	"description": "Uncheck checklist items on a recurring schedule.",
 	"main": "main.js",

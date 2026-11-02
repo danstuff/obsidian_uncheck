@@ -1,4 +1,4 @@
-import type UnchbotPlugin from './main';
+import type UncheckPlugin from './main';
 import {
 	extractStandaloneUncheckPeriod,
 	extractUncheckPeriod,
@@ -7,7 +7,7 @@ import {
 	parseChecklistLine,
 	setChecked,
 } from './checklist';
-import { canParsePeriod, mostRecentOccurrence } from './rrule-utils';
+import { canParsePeriod, mostRecentOccurrence, parseTimeOfDay } from './rrule-utils';
 import { ItemState } from './types';
 
 interface HeaderSection {
@@ -36,9 +36,10 @@ export interface UncheckPassResult {
  * unchecks any that are due for their next recurrence, and rebuilds the
  * plugin's tracked item state to match what's currently in the vault.
  */
-export async function runUncheckPass(plugin: UnchbotPlugin): Promise<UncheckPassResult> {
+export async function runUncheckPass(plugin: UncheckPlugin): Promise<UncheckPassResult> {
 	const now = Date.now();
 	const nowDate = new Date(now);
+	const dayStartMinutes = parseTimeOfDay(plugin.data.settings.dayStartTime) ?? 0;
 	const nextItemState: Record<string, ItemState> = {};
 	const parseErrors = new Set<string>();
 	let filesChanged = 0;
@@ -80,7 +81,7 @@ export async function runUncheckPass(plugin: UnchbotPlugin): Promise<UncheckPass
 			const prior = plugin.data.itemState[key];
 			const baseline = prior ? new Date(prior.lastProcessed) : nowDate;
 
-			const occurrence = mostRecentOccurrence(period, baseline, nowDate);
+			const occurrence = mostRecentOccurrence(period, baseline, nowDate, dayStartMinutes);
 			if (!occurrence) {
 				if (!canParsePeriod(period)) parseErrors.add(period);
 				nextItemState[key] = prior ?? { lastProcessed: now };

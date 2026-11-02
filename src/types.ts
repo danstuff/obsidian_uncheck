@@ -1,6 +1,11 @@
-export interface UnchbotSettings {
+export interface UncheckSettings {
 	/** How often, in minutes, to scan the vault for items due to be unchecked. */
 	checkIntervalMinutes: number;
+	/**
+	 * Local time of day, as `HH:MM` (24-hour), that counts as the start of a new
+	 * day for recurrence purposes. `00:00` means midnight.
+	 */
+	dayStartTime: string;
 }
 
 export interface ItemState {
@@ -8,8 +13,8 @@ export interface ItemState {
 	lastProcessed: number;
 }
 
-export interface UnchbotData {
-	settings: UnchbotSettings;
+export interface UncheckData {
+	settings: UncheckSettings;
 	/** Keyed by a stable identity derived from file path + item text, see checklist.ts. */
 	itemState: Record<string, ItemState>;
 }
